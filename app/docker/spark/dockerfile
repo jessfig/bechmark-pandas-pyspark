@@ -1,0 +1,7 @@
+FROM bitnami/spark:3.5
+
+WORKDIR /app
+
+COPY scripts/spark_benchmark.py .
+
+CMD ["spark-submit", "spark_benchmark.py"]

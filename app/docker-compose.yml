@@ -1,0 +1,21 @@
+version: "3.9"
+
+services:
+  duckdb:
+    build: ./docker/duckdb
+    volumes:
+      - ./data:/data
+
+  pandas:
+    build: ./docker/pandas
+    volumes:
+      - ./data:/data
+    depends_on:
+      - duckdb
+
+  spark:
+    build: ./docker/spark
+    volumes:
+      - ./data:/data
+    depends_on:
+      - duckdb
