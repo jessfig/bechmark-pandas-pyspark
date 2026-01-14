@@ -4,6 +4,6 @@ WORKDIR /app
 
 RUN pip install pandas pyarrow duckdb
 
-COPY scripts/generate_tpch.py .
+COPY scripts/generate_tpch/ .
 
 CMD ["python", "generate_tpch.py"]

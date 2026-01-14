@@ -10,6 +10,9 @@ __pycache__/
 # Pycharm
 .idea/
 
+# Ignorando arquivos parquet
+*.parquet
+
 # Distribution / packaging
 .Python
 build/

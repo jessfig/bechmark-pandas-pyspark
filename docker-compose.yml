@@ -1,0 +1,21 @@
+services:
+  duckdb:
+    build:
+      context: ./app
+      dockerfile: docker/duckdb/DockerFile
+    volumes:
+      - ./app/data:/data
+
+  # pandas:
+  #   build: app/docker/pandas
+  #   volumes:
+  #     - ./data:/data
+  #   depends_on:
+  #     - duckdb
+
+  # spark:
+  #   build: app/docker/spark
+  #   volumes:
+  #     - ./data:/data
+  #   depends_on:
+  #     - duckdb
