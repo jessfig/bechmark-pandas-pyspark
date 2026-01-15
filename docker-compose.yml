@@ -6,15 +6,21 @@ services:
     volumes:
       - ./app/data:/data
 
+  spark:
+    environment:
+      - SPARK_MODE=master
+    ports:
+      - "4040:4040"
+    build:
+      context: ./app
+      dockerfile: docker/spark/DockerFile
+    volumes:
+      - ./app/data:/data
+    depends_on:
+      - duckdb
+
   # pandas:
   #   build: app/docker/pandas
-  #   volumes:
-  #     - ./data:/data
-  #   depends_on:
-  #     - duckdb
-
-  # spark:
-  #   build: app/docker/spark
   #   volumes:
   #     - ./data:/data
   #   depends_on:

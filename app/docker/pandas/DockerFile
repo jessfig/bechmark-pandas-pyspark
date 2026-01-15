@@ -4,6 +4,6 @@ WORKDIR /app
 
 RUN pip install pandas pyarrow duckdb
 
-COPY scripts/pandas_benchmark.py .
+COPY scripts/pandas_benchmark/ .
 
 CMD ["python", "pandas_benchmark.py"]
