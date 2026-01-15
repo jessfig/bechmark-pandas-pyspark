@@ -3,13 +3,15 @@ services:
     build:
       context: ./app
       dockerfile: docker/duckdb/DockerFile
+    volumes:
+      - ./app/data:/data
 
   spark:
     build:
       context: ./app
       dockerfile: docker/spark/DockerFile
-    depends_on:
-      - duckdb
+    volumes:
+      - ./app/data:/data
 
   # pandas:
   #   build: app/docker/pandas

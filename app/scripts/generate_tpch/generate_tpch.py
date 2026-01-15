@@ -7,24 +7,22 @@ from enums.enum_tpch_scale_factor import ScaleFactorTPCH
 class TPCHGenerator:
     def __init__(self):
         self.connection = duckdb.connect()
+        self.output_dir = '/data/tpch/'
 
-    def gera_arquivos_parquet_tpch(self, output_dir:str, scale_factor:float):
-        os.makedirs(output_dir, exist_ok=True)
-        self.connection.execute(f"""CALL dbgen(sf={scale_factor});""")
+    def gera_arquivos_parquet_tpch(self):
+        os.makedirs(self.output_dir, exist_ok=True)
+        self.connection.execute(f"""CALL dbgen(sf={os.getenv("TPCH_SF")});""")
         for table in TablesTPCH:
             self.connection.execute(
                 f"""
                     COPY {table.value}
-                    TO '{output_dir}/{table.value}.parquet'
+                    TO '{self.output_dir}{table.value}.parquet'
                     (FORMAT 'parquet');
                 """
             )
-        print('Arquivos gerados com sucesso!')
+        print(f'Arquivos gerados com sucesso - Scale Factor {os.getenv("TPCH_SF")}!')
 
 
 if __name__ == "__main__":
     generator = TPCHGenerator()
-    generator.gera_arquivos_parquet_tpch(
-        output_dir="/data/tpch",
-        scale_factor=ScaleFactorTPCH.UM_GIGA.value
-    )
+    generator.gera_arquivos_parquet_tpch()

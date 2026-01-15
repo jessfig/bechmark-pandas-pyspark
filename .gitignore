@@ -13,6 +13,9 @@ __pycache__/
 # Ignorando arquivos parquet
 *.parquet
 
+# Ignorando arquivos json
+*.json
+
 # Distribution / packaging
 .Python
 build/

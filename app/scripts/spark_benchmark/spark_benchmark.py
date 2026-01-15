@@ -1,3 +1,4 @@
+import os
 from pyspark.sql import SparkSession
 from utils.time_utils import TimeUtils
 from utils.file_utils import FileUtils
@@ -21,8 +22,7 @@ class PysparkBenckmarck:
         self.__run_spark_sql_querie('scan_filter')
         self.__run_spark_sql_querie('window_function')
         self.time_utils.fim_contador_tempo()
-        tempo = self.time_utils.tempo_processamento_segundos()
-        print(f'Tempo de processamento em segundos: {tempo}')
+        self.__gravar_resultados()
 
     def __ler_tabelas_tpch(self):
         for table in TablesTPCH:
@@ -38,6 +38,13 @@ class PysparkBenckmarck:
         path_sql = f'queries/{querie}.sql'
         querie = self.file_utils.ler_arquivo(path_sql)
         self.spark.sql(querie)
+
+    def __gravar_resultados(self):
+        self.file_utils.gravar_arquivo(
+            nome_teste = 'spark_tpch',
+            scale_factor = os.getenv("TPCH_SF"),
+            tempo = self.time_utils.tempo_processamento_segundos()
+        )
 
 
 if __name__ == "__main__":
