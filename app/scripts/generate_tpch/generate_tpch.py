@@ -9,20 +9,21 @@ class TPCHGenerator:
         self.connection = duckdb.connect()
         self.output_dir = '/data/tpch/'
 
-    def gera_arquivos_parquet_tpch(self):
+    def gera_arquivos_parquet_tpch(self, scale_factor: float):
         os.makedirs(self.output_dir, exist_ok=True)
-        self.connection.execute(f"""CALL dbgen(sf={os.getenv("TPCH_SF")});""")
+        self.connection.execute(f"""CALL dbgen(sf={scale_factor});""")
         for table in TablesTPCH:
             self.connection.execute(
                 f"""
                     COPY {table.value}
-                    TO '{self.output_dir}{table.value}.parquet'
+                    TO '{self.output_dir}{table.value}_sf{scale_factor}.parquet'
                     (FORMAT 'parquet');
                 """
             )
-        print(f'Arquivos gerados com sucesso - Scale Factor {os.getenv("TPCH_SF")}!')
+        print(f'Arquivos gerados com sucesso - Scale Factor {scale_factor}!')
 
 
 if __name__ == "__main__":
     generator = TPCHGenerator()
-    generator.gera_arquivos_parquet_tpch()
+    for scale in ScaleFactorTPCH:
+        generator.gera_arquivos_parquet_tpch(scale_factor=scale.value)
