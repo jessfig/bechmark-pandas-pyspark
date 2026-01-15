@@ -1,7 +1,7 @@
 from pyspark.sql import SparkSession
 from utils.time_utils import TimeUtils
 from utils.file_utils import FileUtils
-from app.scripts.enums.enum_tpch_tables import TablesTPCH
+from enums.enum_tpch_tables import TablesTPCH
 
 
 class PysparkBenckmarck:

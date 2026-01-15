@@ -3,19 +3,11 @@ services:
     build:
       context: ./app
       dockerfile: docker/duckdb/DockerFile
-    volumes:
-      - ./app/data:/data
 
   spark:
-    environment:
-      - SPARK_MODE=master
-    ports:
-      - "4040:4040"
     build:
       context: ./app
       dockerfile: docker/spark/DockerFile
-    volumes:
-      - ./app/data:/data
     depends_on:
       - duckdb
 
