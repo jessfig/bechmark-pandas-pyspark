@@ -13,7 +13,7 @@ class FileUtils:
         os.makedirs(output_dir, exist_ok=True)
         with open(f"{output_dir}/{nome_teste}_sf{scale_factor}.json", "w") as f:
             json.dump({
-                "engine": "duckdb",
+                "engine": "tpchgen",
                 "sf": scale_factor,
                 "time": tempo
             }, f)

@@ -1,8 +1,8 @@
 services:
-  duckdb:
+  tpchgen:
     build:
-      context: ./app
-      dockerfile: docker/duckdb/DockerFile
+      context: .
+      dockerfile: /app/docker/tpchgen/DockerFile
     volumes:
       - ./app/data:/data
 
@@ -10,6 +10,8 @@ services:
     build:
       context: ./app
       dockerfile: docker/spark/DockerFile
+    mem_limit: 16g
+    cpus: 10
     volumes:
       - ./app/data:/data
 
@@ -17,5 +19,3 @@ services:
   #   build: app/docker/pandas
   #   volumes:
   #     - ./data:/data
-  #   depends_on:
-  #     - duckdb

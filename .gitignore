@@ -10,11 +10,10 @@ __pycache__/
 # Pycharm
 .idea/
 
-# Ignorando arquivos parquet
+# Ignorando arquivos
 *.parquet
-
-# Ignorando arquivos json
 *.json
+*.tbl
 
 # Distribution / packaging
 .Python
