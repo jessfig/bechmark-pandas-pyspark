@@ -3,6 +3,8 @@ services:
     build:
       context: .
       dockerfile: /app/docker/tpchgen/DockerFile
+    mem_limit: 4g
+    cpus: 8
     volumes:
       - ./app/data:/data
 
