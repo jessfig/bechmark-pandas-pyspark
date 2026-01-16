@@ -10,7 +10,7 @@ services:
     build:
       context: ./app
       dockerfile: docker/spark/DockerFile
-    mem_limit: 16g
+    mem_limit: 4g
     cpus: 8
     volumes:
       - ./app/data:/data
@@ -19,11 +19,10 @@ services:
     build:
       context: ./app
       dockerfile: docker/parquet/DockerFile
-    mem_limit: 16g
+    mem_limit: 4g
     cpus: 8
     volumes:
-      - ./app/data/tpch:/data/tpch
-      - ./app/data/tpch_parquet:/data/tpch_parquet
+      - ./app/data:/data
 
   # pandas:
   #   build: app/docker/pandas
