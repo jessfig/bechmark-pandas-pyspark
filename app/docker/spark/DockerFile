@@ -6,6 +6,5 @@ COPY scripts/spark_benchmark/ .
 COPY scripts/enums/ ./enums
 COPY scripts/utils/ ./utils
 COPY queries/tpch/ ./queries
-COPY data/tpch/ ./data
 
 CMD ["/opt/spark/bin/spark-submit", "spark_benchmark.py"]

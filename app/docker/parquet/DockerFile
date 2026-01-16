@@ -1,0 +1,9 @@
+FROM apache/spark:3.5.1
+
+WORKDIR /app
+
+COPY scripts/generate_parquet/ .
+COPY scripts/enums/ ./enums
+COPY scripts/utils/ ./utils
+
+CMD ["/opt/spark/bin/spark-submit", "generate_parquet.py"]

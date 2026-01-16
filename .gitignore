@@ -14,6 +14,8 @@ __pycache__/
 *.parquet
 *.json
 *.tbl
+*.crc
+_SUCCESS
 
 # Distribution / packaging
 .Python
