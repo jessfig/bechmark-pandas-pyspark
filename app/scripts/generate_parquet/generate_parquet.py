@@ -1,5 +1,6 @@
 from pathlib import Path
 from pyspark.sql import SparkSession
+from utils.time_utils import TimeUtils
 from enums.enum_tpch_tables import TablesTPCH
 from enums.enum_tpch_scale_factor import ScaleFactorTPCH
 from schema_files import SchemaFiles
@@ -7,6 +8,7 @@ from schema_files import SchemaFiles
 
 class ConvertToParquet:
     def __init__(self):
+        self.time_utils = TimeUtils()
         self.spark = SparkSession.builder.appName("ConvertToParquet").getOrCreate()
         self.schemas = SchemaFiles()
         self.input_path = '/data/tpch'
@@ -14,10 +16,15 @@ class ConvertToParquet:
 
     def convert_files(self, scale_factor: float):
         for table in TablesTPCH:
+            self.time_utils.inicio_contador_tempo()
             print(f"Iniciando conversão da tabela {table.value} para parquet!")
             df = self.__read_file(table.value, scale_factor)
             self.__write_file(df, scale_factor)
-            print(f"Finalizando conversão da tabela {table.value} para parquet!")
+            self.time_utils.fim_contador_tempo()
+            print(
+                f'Finalizando a conversão da tabela: {table.value}, scale factor: {scale_factor} para parquet, '
+                f'tempo de processamento em segundos: {self.time_utils.tempo_processamento_segundos()}!'
+            )
 
     def __read_file(self, table: str, scale_factor: float):
         input_file = f"{self.input_path}/sf{scale_factor}/{table}.tbl"

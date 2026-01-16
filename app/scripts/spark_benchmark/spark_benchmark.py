@@ -27,7 +27,7 @@ class PysparkBenckmarck:
 
     def __ler_tabelas_tpch(self, scale_factor: float):
         for table in TablesTPCH:
-            path = f'data/tpch/parquet/sf{scale_factor}/{table}.parquet'
+            path = f'data/tpch/tpch_parquet/sf{scale_factor}/{table}.parquet'
             df = self.__read_table(path)
             df.createOrReplaceTempView(table.value)
 
