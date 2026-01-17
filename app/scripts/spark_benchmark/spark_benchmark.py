@@ -10,13 +10,13 @@ from enums.enum_queries import Queries
 class PysparkBenckmarck:
     def __init__(self):
         self.time_utils = TimeUtils()
+        self.timestamp = self.time_utils.timestamp()
         self.spark_utils = SparkUtils()
         self.spark = self.spark_utils.get_spark_session()
         self.file_utils = FileUtils()
 
     def run_benchmark(self, scale_factor: float):
         self.__ler_tabelas_tpch(scale_factor)
-        timestamp = self.time_utils.timestamp()
 
         for query in Queries:
             self.time_utils.inicio_contador_tempo()
@@ -25,7 +25,7 @@ class PysparkBenckmarck:
             self.time_utils.fim_contador_tempo()
 
             self.file_utils.gravar_arquivo(
-                path_name = f'/data/results/spark/sf{scale_factor}/{timestamp}',
+                path_name = f'/data/results/spark/{self.timestamp}/sf{scale_factor}/',
                 query = query.value,
                 scale_factor=scale_factor,
                 time=self.time_utils.tempo_processamento_segundos()

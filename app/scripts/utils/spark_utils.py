@@ -17,18 +17,27 @@ class SparkUtils:
         return (
             SparkSession.builder
             .appName("tpch-benchmark")
-            .master("local[8]")
+
             # CPU
+            .master("local[8]")
             .config("spark.executor.cores", "8")
-            # Memory
-            .config("spark.driver.memory", "2g")
-            .config("spark.executor.memory", "2g")
-            # Shuffle
-            .config("spark.sql.shuffle.partitions", "8")
-            # Benchmark friendly
-            .config("spark.sql.adaptive.enabled", "false")
-            # GC - Garbage collector
-            .config("spark.driver.extraJavaOptions", "-XX:+UseG1GC")
+
+            # Memória
+            .config("spark.executor.memory", "14g")
+            .config("spark.driver.memory", "8g")
+            .config("spark.executor.memoryOverhead", "2g")
+
+            # Shuffle / SQL
+            .config("spark.sql.shuffle.partitions", "24")
+            .config("spark.sql.adaptive.enabled", "false")  # benchmark estável
+            .config("spark.sql.broadcastTimeout", "1200")
+
+            # GC - Garbage collector (estável para workload grande)
             .config("spark.executor.extraJavaOptions", "-XX:+UseG1GC")
+            .config("spark.driver.extraJavaOptions", "-XX:+UseG1GC")
+
+            # Debug / estabilidade
+            .config("spark.sql.execution.arrow.pyspark.enabled", "false")
+            .config("spark.driver.maxResultSize", "2g")
             .getOrCreate()
         )
