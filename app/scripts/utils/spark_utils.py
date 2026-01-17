@@ -14,7 +14,7 @@ class SparkUtils:
         df.write.mode("overwrite").parquet(path)
 
     def get_spark_session(self):
-        return (
+        spark = (
             SparkSession.builder
             .appName("tpch-benchmark")
 
@@ -23,12 +23,12 @@ class SparkUtils:
             .config("spark.executor.cores", "8")
 
             # Memória
-            .config("spark.executor.memory", "14g")
-            .config("spark.driver.memory", "8g")
+            .config("spark.executor.memory", "10g")
+            .config("spark.driver.memory", "4g")
             .config("spark.executor.memoryOverhead", "2g")
 
             # Shuffle / SQL
-            .config("spark.sql.shuffle.partitions", "24")
+            .config("spark.sql.shuffle.partitions", "16")
             .config("spark.sql.adaptive.enabled", "false")  # benchmark estável
             .config("spark.sql.broadcastTimeout", "1200")
 
@@ -39,5 +39,6 @@ class SparkUtils:
             # Debug / estabilidade
             .config("spark.sql.execution.arrow.pyspark.enabled", "false")
             .config("spark.driver.maxResultSize", "2g")
+
             .getOrCreate()
         )

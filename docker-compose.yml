@@ -3,7 +3,7 @@ services:
     build:
       context: .
       dockerfile: /app/docker/tpchgen/DockerFile
-    mem_limit: 24g
+    mem_limit: 16g
     cpus: 8
     volumes:
       - ./app/data:/data
@@ -12,7 +12,7 @@ services:
     build:
       context: ./app
       dockerfile: docker/parquet/DockerFile
-    mem_limit: 24g
+    mem_limit: 16g
     cpus: 8
     volumes:
       - ./app/data:/data
@@ -21,7 +21,7 @@ services:
     build:
       context: ./app
       dockerfile: docker/spark/DockerFile
-    mem_limit: 24g
+    mem_limit: 16g
     cpus: 8
     volumes:
       - ./app/data:/data
