@@ -8,12 +8,12 @@ class FileUtils:
             content = f.read()
             return content
 
-    def gravar_arquivo(self, nome_teste: str, scale_factor: float, tempo: int):
-        output_dir = "/data/results"
-        os.makedirs(output_dir, exist_ok=True)
-        with open(f"{output_dir}/{nome_teste}_sf{scale_factor}.json", "w") as f:
+    def gravar_arquivo(self, path_name: str, query: str, scale_factor: float, time: float):
+        os.makedirs(path_name, exist_ok=True)
+        with open(f"{path_name}/{query}.json", "w") as f:
             json.dump({
                 "engine": "tpchgen",
+                "query": query,
                 "sf": scale_factor,
-                "time": tempo
+                "time": time
             }, f)

@@ -1,4 +1,5 @@
 import time
+from datetime import datetime
 
 
 class TimeUtils:
@@ -11,3 +12,7 @@ class TimeUtils:
     def tempo_processamento_segundos(self):
         elapsed_seconds = self.__end - self.__start
         return elapsed_seconds
+
+    def timestamp(self):
+        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+        return timestamp

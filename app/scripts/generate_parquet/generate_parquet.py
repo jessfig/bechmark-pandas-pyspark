@@ -9,8 +9,8 @@ from schema_files import SchemaFiles
 class ConvertToParquet:
     def __init__(self):
         self.time_utils = TimeUtils()
-        self.spark = SparkSession.builder.appName("ConvertToParquet").getOrCreate()
-        self.spark_utils = SparkUtils(self.spark)
+        self.spark_utils = SparkUtils()
+        self.spark = self.spark_utils.get_spark_session()
         self.schemas = SchemaFiles()
         self.input_path = '/data/tpch'
         self.output_path = '/data/tpch_parquet'
@@ -22,9 +22,9 @@ class ConvertToParquet:
 
             input_path = f"{self.input_path}/sf{scale_factor}/{table.value}.tbl"
             schema = self.__get_schema(table.value)
-            df = self.spark_utils.read_csv_file(input_path, schema)
+            df = self.spark_utils.read_csv_file(self.spark, input_path, schema)
 
-            output_path = f"{self.output_path}/sf{scale_factor}_{table.value}"
+            output_path = f"{self.output_path}/sf{scale_factor}/{table.value}"
             self.spark_utils.write_parquet_file(df, output_path)
 
             self.time_utils.fim_contador_tempo()
