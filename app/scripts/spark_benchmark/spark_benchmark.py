@@ -8,14 +8,13 @@ from enums.enum_queries import Queries
 
 
 class PysparkBenckmarck:
-    def __init__(self):
+    def __init__(self, spark_utils):
         self.time_utils = TimeUtils()
         self.timestamp = self.time_utils.timestamp()
-        self.spark_utils = SparkUtils()
-        self.spark = self.spark_utils.get_spark_session()
         self.file_utils = FileUtils()
+        self.spark_utils = spark_utils
 
-    def run_benchmark(self, scale_factor: float):
+    def run(self, scale_factor: float):
         self.__ler_tabelas_tpch(scale_factor)
 
         for query in Queries:
@@ -34,20 +33,21 @@ class PysparkBenckmarck:
     def __ler_tabelas_tpch(self, scale_factor: float):
         for table in TablesTPCH:
             path = f'/data/tpch_parquet/sf{scale_factor}/{table.value}'
-            df = self.spark_utils.read_parquet_file(self.spark, path)
+            df = self.spark_utils.read_parquet_file(path)
             df.createOrReplaceTempView(table.value)
 
     def __run_spark_sql_query(self, query):
         path_sql = f'queries/{query}.sql'
         query = self.file_utils.ler_arquivo(path_sql)
-        df = self.spark.sql(query)
+        df = self.spark_utils.get_spark_session().sql(query)
         return df
 
 
 if __name__ == "__main__":
-    pyspark_benchmark = PysparkBenckmarck()
-    # Warm Up
-    pyspark_benchmark.run_benchmark(scale_factor=ScaleFactorTPCH.DEZ_MB.value)
-
+    spark_utils = SparkUtils()
+    pyspark_benchmark = PysparkBenckmarck(spark_utils)
+    pyspark_benchmark.run(scale_factor=ScaleFactorTPCH.DEZ_MB.value) # Warm Up
     for scale in ScaleFactorTPCH:
-        pyspark_benchmark.run_benchmark(scale_factor=scale.value)
+        pyspark_benchmark.run(scale_factor=scale.value)
+    spark_utils.limpa_cache_spark()
+    spark_utils.stop_spark_session()

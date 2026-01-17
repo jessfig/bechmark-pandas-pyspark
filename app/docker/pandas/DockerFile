@@ -2,8 +2,11 @@ FROM python:3.11-slim
 
 WORKDIR /app
 
-RUN pip install pandas pyarrow duckdb
+RUN pip install pandas pyarrow pandasql
 
 COPY scripts/pandas_benchmark/ .
+COPY scripts/enums/ ./enums
+COPY scripts/utils/ ./utils
+COPY queries/tpch/ ./queries
 
 CMD ["python", "pandas_benchmark.py"]
