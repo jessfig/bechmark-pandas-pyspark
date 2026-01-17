@@ -1,0 +1,1 @@
+{"engine": "tpchgen", "query": "join_filter_groupby", "sf": 0.01, "time": 1.2946101560009993}
