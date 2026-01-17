@@ -14,7 +14,7 @@ class SparkUtils:
         df.write.mode("overwrite").parquet(path)
 
     def get_spark_session(self):
-        spark = (
+        return (
             SparkSession.builder
             .appName("tpch-benchmark")
 
