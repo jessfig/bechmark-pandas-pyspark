@@ -22,4 +22,6 @@ Comparar o processamento da biblioteca pandas com o framework spark usando difer
 > docker compose up spark
 
 * Último passo é executar o benchmark a biblioteca pandas:
-> Em desenvolvimento...
+> docker compose build pandas
+> 
+> docker compose up pandas
