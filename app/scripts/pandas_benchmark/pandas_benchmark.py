@@ -27,8 +27,7 @@ class PandasBenchmark:
             self.time_utils.inicio_contador_tempo()
 
             df = self.__run_sql_query(query.value)
-            for _ in df.itertuples(index=False):
-                pass # força execução da query
+            _ = df.to_numpy() # forçando execução da query
 
             self.time_utils.fim_contador_tempo()
             tempo_processamento = self.time_utils.tempo_processamento_segundos()

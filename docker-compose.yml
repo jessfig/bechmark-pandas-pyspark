@@ -12,9 +12,9 @@ services:
       context: ./app
       dockerfile: docker/parquet/DockerFile
     platform: linux/amd64
-    shm_size: 4g
-    mem_limit: 16g
-    memswap_limit: 24g
+    shm_size: 8g
+    mem_limit: 32g
+    memswap_limit: 32g
     cpus: 8
     ulimits:
       nofile:
@@ -30,9 +30,9 @@ services:
       context: ./app
       dockerfile: docker/spark/DockerFile
     platform: linux/amd64
-    shm_size: 4g
-    mem_limit: 16g
-    memswap_limit: 24g
+    shm_size: 8g
+    mem_limit: 32g
+    memswap_limit: 32g
     cpus: 8
     ulimits:
       nofile:
@@ -50,8 +50,8 @@ services:
       dockerfile: docker/pandas/DockerFile
     platform: linux/amd64
     shm_size: 8g
-    mem_limit: 16g
-    memswap_limit: 24g
+    mem_limit: 32g
+    memswap_limit: 32g
     cpus: 8
     ulimits:
       nofile:

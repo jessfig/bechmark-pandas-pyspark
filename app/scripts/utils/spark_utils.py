@@ -37,14 +37,14 @@ class SparkUtils:
             .master("local[8]")
 
             # Memória (container 16g)
-            .config("spark.driver.memory", "10g")
-            .config("spark.driver.memoryOverhead", "2g")
+            .config("spark.driver.memory", "26g")
+            .config("spark.driver.memoryOverhead", "4g")
 
             # CPU / paralelismo
             .config("spark.default.parallelism", "8")
 
             # Shuffle / SQL
-            .config("spark.sql.shuffle.partitions", "8")
+            .config("spark.sql.shuffle.partitions", "32")
             .config("spark.sql.adaptive.enabled", "false")
             .config("spark.sql.broadcastTimeout", "1200")
 
