@@ -24,7 +24,7 @@ class ConvertToParquet:
 
             input_path = f"{self.input_path}/sf{scale_factor}/{table.value}.tbl"
             schema = self.__get_schema(table.value)
-            df = self.spark_utils.read_csv_file(self.spark, input_path, schema)
+            df = self.spark_utils.read_csv_file(input_path, schema)
 
             output_path = f"{self.output_path}/sf{scale_factor}/{table.value}"
             self.spark_utils.write_parquet_file(df, output_path)
