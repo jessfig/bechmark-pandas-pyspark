@@ -22,8 +22,7 @@ services:
         hard: 1048576
     volumes:
       - ./app/data:/data
-#    depends_on:
-#      - tpchgen
+
 
   spark:
     build:
@@ -40,9 +39,6 @@ services:
         hard: 1048576
     volumes:
       - ./app/data:/data
-#    depends_on:
-#      - tpchgen
-#      - parquet
 
   pandas:
     build:
@@ -59,6 +55,3 @@ services:
         hard: 1048576
     volumes:
       - ./app/data:/data
-#    depends_on:
-#      - tpchgen
-#      - parquet
