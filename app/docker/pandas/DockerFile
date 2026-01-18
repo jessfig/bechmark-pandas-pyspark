@@ -2,7 +2,7 @@ FROM python:3.11-slim
 
 WORKDIR /app
 
-RUN pip install pandas pyarrow pandasql
+RUN pip install pandas pyarrow duckdb
 
 COPY scripts/pandas_benchmark/ .
 COPY scripts/enums/ ./enums

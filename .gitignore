@@ -12,6 +12,7 @@ __pycache__/
 
 # Ignorando arquivos
 *.parquet
+*.json
 *.tbl
 *.crc
 _SUCCESS

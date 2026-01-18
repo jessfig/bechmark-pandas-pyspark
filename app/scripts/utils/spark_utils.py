@@ -33,22 +33,31 @@ class SparkUtils:
             SparkSession.builder
             .appName("tpch-benchmark")
 
-            # CPU
+            # Local mode
             .master("local[8]")
-            .config("spark.executor.cores", "8")
 
-            # Memória
-            .config("spark.executor.memory", "16g")
-            .config("spark.driver.memory", "16g")
-            .config("spark.executor.memoryOverhead", "8g")
+            # Memória (container 16g)
+            .config("spark.driver.memory", "10g")
+            .config("spark.driver.memoryOverhead", "2g")
+
+            # CPU / paralelismo
+            .config("spark.default.parallelism", "8")
 
             # Shuffle / SQL
-            .config("spark.sql.shuffle.partitions", "32")
-            .config("spark.sql.adaptive.enabled", "false")  # benchmark estável
+            .config("spark.sql.shuffle.partitions", "8")
+            .config("spark.sql.adaptive.enabled", "false")
             .config("spark.sql.broadcastTimeout", "1200")
 
             # GC - Garbage collector (estável para workload grande)
-            .config("spark.executor.extraJavaOptions", "-XX:+UseG1GC")
-            .config("spark.driver.extraJavaOptions", "-XX:+UseG1GC")
+            .config(
+                "spark.driver.extraJavaOptions",
+                "-XX:+UseG1GC "
+                "-XX:InitiatingHeapOccupancyPercent=35 "
+                "-XX:+ExplicitGCInvokesConcurrent"
+            )
+
+            # Evita cache acidental
+            .config("spark.sql.inMemoryColumnarStorage.compressed", "true")
+
             .getOrCreate()
         )
