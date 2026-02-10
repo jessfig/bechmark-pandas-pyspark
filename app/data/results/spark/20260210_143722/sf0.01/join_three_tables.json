@@ -1,0 +1,1 @@
+{"engine": "tpchgen", "query": "join_three_tables", "sf": 0.01, "time": 1.3852682609999647}

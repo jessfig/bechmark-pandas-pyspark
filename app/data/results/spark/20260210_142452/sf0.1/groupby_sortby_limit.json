@@ -1,0 +1,1 @@
+{"engine": "tpchgen", "query": "groupby_sortby_limit", "sf": 0.1, "time": 0.8907261829999698}

@@ -1,0 +1,1 @@
+{"engine": "tpchgen", "query": "scan_filter", "sf": 10, "time": 6.769245531000024}
