@@ -1,0 +1,17 @@
+FROM python:3.11-slim
+
+WORKDIR /app
+
+RUN pip install pandas pyarrow duckdb
+
+COPY scripts/pandas_benchmark/ .
+COPY scripts/enums/ ./enums
+COPY scripts/utils/ ./utils
+COPY queries/tpch/ ./queries
+
+ENV OMP_NUM_THREADS=8
+ENV OPENBLAS_NUM_THREADS=8
+ENV MKL_NUM_THREADS=8
+ENV NUMEXPR_NUM_THREADS=8
+
+CMD ["python", "pandas_benchmark.py"]

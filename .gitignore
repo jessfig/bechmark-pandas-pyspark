@@ -6,6 +6,16 @@ __pycache__/
 # C extensions
 *.so
 
+
+# Pycharm
+.idea/
+
+# Ignorando arquivos
+*.parquet
+*.tbl
+*.crc
+_SUCCESS
+
 # Distribution / packaging
 .Python
 build/

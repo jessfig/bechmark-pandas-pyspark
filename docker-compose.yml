@@ -1,0 +1,57 @@
+services:
+  tpchgen:
+    build:
+      context: .
+      dockerfile: /app/docker/tpchgen/DockerFile
+    platform: linux/amd64
+    volumes:
+      - ./app/data:/data
+
+  parquet:
+    build:
+      context: ./app
+      dockerfile: docker/parquet/DockerFile
+    platform: linux/amd64
+    shm_size: 8g
+    mem_limit: 32g
+    memswap_limit: 32g
+    cpus: 8
+    ulimits:
+      nofile:
+        soft: 1048576
+        hard: 1048576
+    volumes:
+      - ./app/data:/data
+
+
+  spark:
+    build:
+      context: ./app
+      dockerfile: docker/spark/DockerFile
+    platform: linux/amd64
+    shm_size: 8g
+    mem_limit: 32g
+    memswap_limit: 32g
+    cpus: 8
+    ulimits:
+      nofile:
+        soft: 1048576
+        hard: 1048576
+    volumes:
+      - ./app/data:/data
+
+  pandas:
+    build:
+      context: ./app
+      dockerfile: docker/pandas/DockerFile
+    platform: linux/amd64
+    shm_size: 8g
+    mem_limit: 32g
+    memswap_limit: 32g
+    cpus: 8
+    ulimits:
+      nofile:
+        soft: 1048576
+        hard: 1048576
+    volumes:
+      - ./app/data:/data
